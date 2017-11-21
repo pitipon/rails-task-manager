@@ -1,2 +1,40 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+
+      <br>
+
+      <!-- Search Form -->
+      <!-- <form class="form-inline" action="/tasks" method="post">
+        <input class="form-control mr-sm-2" name="task[todo]" id="todo" type="text" placeholder="to do">
+        <input class="form-control mr-sm-2" name="task[deadline]" id="deadline" type="text" placeholder="deadline">
+        <button class="btn btn-outline-success my-4 my-sm-0" type="add">add</button>
+      </form> -->
+      <form class="form-inline" action="/tasks" method="post">
+        <%= form_for(@task) do |f| %>
+
+        <%= f.text_field :todo , placeholder: "to do", :class => 'form-control mr-sm-2'%>
+
+        <%= f.text_field :deadline ,placeholder: "dead line",  :class => 'form-control mr-sm-2' %>
+
+        <%= f.submit 'add', :class => 'btn btn-outline-success my-4 my-sm-0' %>
+        <% end %>
+      </form>
+      <br>
+
+      <!-- Tasks List -->
+      <% @tasks.reverse_each do |task| %>
+      <div class="alert alert-info" role="alert">
+        <%= "#{task.todo} | #{task.deadline}" %>
+        <%= link_to "Edit", edit_task_path(task) %>
+        <%= link_to "Delete", task_path(task),
+          method: :delete,
+          data: { confirm: "Are you sure?" } %>
+      </div>
+      <% end %>
+
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
